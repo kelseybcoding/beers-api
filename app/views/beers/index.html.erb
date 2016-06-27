@@ -1,0 +1,27 @@
+<div ng-app="app">
+  {{ 1 + 1 }}
+  <div ng-controller="beersCtrl" ng-init="setup()">
+
+  <h1>All Da Beers.</h1>
+
+  	<div ng-repeat="beer in beers track by $index">
+		<p ng-click="deleteBeer($index)">Delete Beer</p>
+	</div>
+
+		<div class="form">
+		<h3 ng-repeat="error in errors">{{ error }}</h3>
+      	<h4>Name: <input type="text" ng-model="newName"></h4>
+      	<h4>Style: <input type="text" ng-model="newStyle"></h4>
+      	<h4>Hop: <input type="text" ng-model="newHope"></h4>
+      	<h4>Yeast: <input type="text" ng-model="newYeast"></h4>
+      	<h4>Malts: <input type="text" ng-model="newMalts"></h4>
+      	<h4>IBU: <input type="text" ng-model="newIbu"></h4>
+      	<h4>Alcohol: <input type="text" ng-model="newAlcohol"></h4>
+      	<h4>blg: <input type="text" ng-model="newBlg"></h4>
+      	<button ng-click="addPerson(newName, newStyle)">Add Beer</button>
+    	</div>
+  </div> <!-- end of ng-controller -->
+</div>
+
+
+
