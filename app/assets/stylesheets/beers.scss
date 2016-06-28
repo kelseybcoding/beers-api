@@ -1,3 +1,13 @@
-// Place all the styles related to the beers controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+.ng-enter, .ng-move{
+  -webkit-animation: jello 1s;
+  -moz-animation: jello 1s;
+  -o-animation: jello 1s;
+  animation: jello 1s;
+}
+
+.ng-leave{
+  -webkit-animation: lightSpeedOut 2s;
+  -moz-animation: lightSpeedOut 2s;
+  -o-animation: lightSpeedOut 2s;
+  animation: lightSpeedOut 2s;
+}

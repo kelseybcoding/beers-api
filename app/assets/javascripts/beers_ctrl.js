@@ -1,4 +1,4 @@
-(function) {
+(function() {
 	"use strict";
 
 	angular.module("app").controller("beersCtrl", function($scope,$http){
@@ -6,38 +6,51 @@
 		$scope.setup = function(){
 			$http.get("/api/v1/beers.json").then(function(response){
 
-				$scope.beers = response.data;
+			$scope.beers = response.data;
 			});
+
 		};
 
-		$scope.addBeer = function(beerName, beerStyle, beerHop, beerYeast, beerMalts, beerIbu, beerAlcohol, beerBlg){
+		$scope.toggleStyleVisible = function(beer){
+			beer.styleVisible = !beer.styleVisible
+		};
+
+		$scope.addBeer = function(beerName, beerStyle, beerHop, beerMalts, beerAlcohol){
 			
-			if ( beerName && beerStyle && beerHop && beerYeast && beerMalts && beerIbu && beerAlcohol && beerBlg ){
 				var newBeer = {
 					name: beerName,
 					style: beerStyle,
 					hop: beerHop,
-					yeast: beerYeast,
 					malts: beerMalts,
-					ibu: beerIbu,
-					alcohol: beerAlcohol,
-					blg: beerBlg,
+					alcohol: beerAlcohol
 				};
 
-				$scope.beers.push(newBeer);
+				$http.post('/api/v1/beers.json', newBeer).then(function(response){
+				$scope.beers.push(response.data);
 				$scope.newName = '';
 				$scope.newStyle = '';
 				$scope.newHop = '';
-				$scope.newYeast = '';
 				$scope.newMalts = '';
-				$scope.newIbu = '';
 				$scope.newAlcohol = '';
-				$scope.newBlg = '';
-				}
+				$scope.errors = [];
+				}, function(error){
+					$scope.errors = error.data.errors;
+				});
 			};
 
 			$scope.deleteBeer = function(index){
 				$scope.beers.splice(index,1);
 			};
-	});
-};
+
+			$scope.setOrderBy = function(attribute){
+
+				if (attribute != $scope.orderAttribute){
+					$scope.descending = false;
+				} else {
+					$scope.descending = !$scope.descending;
+				}
+
+				$scope.orderAttribute = attribute
+			};
+		});
+}());
